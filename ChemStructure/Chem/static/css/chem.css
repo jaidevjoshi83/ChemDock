@@ -1,0 +1,30 @@
+#composer {
+margin: 10px;
+}
+
+#chemViewer{
+    margin: 10px;
+}
+button{
+    background-color: #3123b0; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    float: left;
+    margin: 5px;
+}
+
+button:hover{
+    background-color: #1c0f55; /* Green */
+}
+
+#header{
+    width: 100%;
+    height: 10%;
+    background: rgb(239, 123, 14);
+    font-size: 15px;
+}

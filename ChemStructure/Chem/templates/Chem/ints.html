@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript"> 
+        var data_url = "{% static 'data/data.mol' %}"
+        var file_api = "{% url 'post_form_api' %}"
+        var close_server = "{% url 'close_server' %}"
+    </script>
+    <!-- from CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js" integrity="sha512-tBzZQxySO5q5lqwLWfu8Q+o4VkTcRGOeQGVQ0ueJga4A1RKuzmAu5HXDOXLEjpbKyV7ow9ympVoa6wZLEzRzDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.152.2/three.min.js" integrity="sha512-R7eFJsc3NlvsTn5hdD/Xvi6FwpFGAoGOa2nBNU89DXAZzXgQQrfhgHVpm5Kh7H9EuCU3Ymexph9z4IiHrq977g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/kekule/dist/themes/default/kekule.css" />
+    <script src="https://cdn.jsdelivr.net/npm/kekule/dist/kekule.min.js"></script>
+    <!-- or -->
+    <link id="molResExternalLink" href="{% static 'data/data.mol' %}" type="chemical/x-mdl-molfile" />
+    
+    <link rel="stylesheet" href="{% static 'css/chem.css' %}">
+    <!-- or from other CDN -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<div id="header">
+    <div style=" padding:10px; ">
+        <h1> Draw edit Chemical Structure</h1>
+    </div>
+</div>
+
+ <div><div id="composer" style="width:600px;height:400px" data-widget="Kekule.Editor.Composer" data-chem-obj=""></div></div>
+ <div><div id="chemViewer" style="width:600px;height:400px" data-widget="Kekule.ChemWidget.Viewer" data-chem-obj=""></div></div>
+
+ <div class="buttons">
+
+    <div> <button id="myFormSubmitButton"> Export to file </button></div>
+    <div> <button id="export3D"> Export 3D </button></div>
+    <div> <button id="exit"> Exit tool </button></div>
+ </div>
+
+</body>
+
+<script src="{% static 'js/chem.js' %}"></script>
+
+
+</html>
