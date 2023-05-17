@@ -12,18 +12,15 @@
             <url>/</url>
         </entry_point>
     </entry_points>
-        <environment_variables>
-        <environment_variable name="HISTORY_ID">$__history_id__</environment_variable>
-        <environment_variable name="REMOTE_HOST">$__galaxy_url__</environment_variable>
-        <environment_variable name="GALAXY_WEB_PORT">8080</environment_variable>
-        <environment_variable name="GALAXY_URL">$__galaxy_url__</environment_variable>
-        <environment_variable name="API_KEY" inject="api_key" />
-    </environment_variables>
+
     
     <command><![CDATA[
         #import re
 
+
         ln -sf '$input' '/home/app/webapp/Chem/static/data/data.mol' &&
+
+        cat '/home/app/webapp/Chem/static/data/data.mol' &&
 
         python /home/app/webapp/manage.py runserver 0.0.0.0:8000 && 
 
