@@ -12,20 +12,12 @@
             <url>/</url>
         </entry_point>
     </entry_points>
-
     
     <command><![CDATA[
         #import re
-
-
         ln -sf '$input' '/home/app/webapp/Chem/static/data/data.mol' &&
-
-        cat '/home/app/webapp/Chem/static/data/data.mol' &&
-
         python /home/app/webapp/manage.py runserver 0.0.0.0:8000 && 
-
         cp '/home/app/webapp/Chem/static/out/chem.mol' '$output'
-
       ]]>
     </command>
     
@@ -46,8 +38,7 @@
     </tests>
     
     <help><![CDATA[
-This interactive tool allows user to edit and draw chemical structures.
-
+        This interactive tool allows user to edit and draw chemical structures.
    ]]></help>
     <citations>
         <citation type="doi">https://github.com/jaidevjoshi83/ChemDock</citation>
