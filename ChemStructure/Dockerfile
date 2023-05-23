@@ -1,10 +1,19 @@
 # base image  
-FROM python:3.8   
+FROM continuumio/miniconda3
+
 # setup environment variable  
 ENV DockerHOME=/home/app/webapp  
 
+
 # set work directory  
 RUN mkdir -p $DockerHOME  
+
+
+#RUN conda create -n RDKIT -c conda-forge rdkit -y 
+#RUN /bin/bash -c "source activate RDKIT"
+
+
+RUN conda install  -c conda-forge rdkit django django-import-export
 
 # where your code lives  
 WORKDIR $DockerHOME  
@@ -14,12 +23,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1  
 
 # install dependencies  
-RUN pip install --upgrade pip  
+#RUN pip install --upgrade pip  
 
 # copy whole project to your docker home directory. 
+
+RUN echo "work directory"
 COPY . $DockerHOME  
-# run this command to install all dependencies  
-RUN pip install django django-import-export 
+
+
 # port where the Django app runs  
 EXPOSE 8000  
 # start server  

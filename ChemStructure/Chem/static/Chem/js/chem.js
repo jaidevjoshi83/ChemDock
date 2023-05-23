@@ -1,121 +1,37 @@
-// var loaded_data
-
-// $.get(data_url).done(function(data) { 
-
-//     console.log("OK")
-
-//     loaded_data = data
-
-//     var mol = Kekule.IO.loadFormatData(data, 'mol');
-//     var composer = Kekule.Widget.getWidgetById('composer');
-
-//     composer.setChemObj(mol);
-  
-//     document.querySelector('#export3D').addEventListener('click',()=> {
-  
-//         var view = Kekule.Widget.getWidgetById('chemViewer');
-//         view.setChemObj(mol);
-//         view.setRenderType(Kekule.Render.RendererType.R3D);
-//         view.setMoleculeDisplayType(Kekule.Render.Molecule3DDisplayType.STICKS);
-//     })
-//     // exists code 
-// }).fail(function() { 
-//     document.querySelector('#export3D').addEventListener('click',()=> {
-
-//         var composer = Kekule.Widget.getWidgetById('composer');
-//         var mol1 = composer.getChemObj();
-  
-//         var view = Kekule.Widget.getWidgetById('chemViewer');
-//         view.setChemObj(mol1);
-//         view.setRenderType(Kekule.Render.RendererType.R3D);
-//         view.setMoleculeDisplayType(Kekule.Render.Molecule3DDisplayType.STICKS);
-//     })
-// })
-
-// document.querySelector('#myFormSubmitButton').addEventListener('click', ()=>{
-  
-//   var composer = Kekule.Widget.getWidgetById('composer');
-//   var molecule1 = composer.getChemObj();
-//   var cmlData1 = Kekule.IO.saveFormatData( molecule1, 'mol');
-
-//   var data1 = {'file':cmlData1}
-
-  
-
-//   $.ajax({ url: file_api,
-//                       type: "POST",
-//                       dataType: "json",
-//                       data: data1,
-//                       cache: false
-//               }).done(function(data) {
-//                   if (data.result === true){
-//                       alert(data.message);
-//                   }
-//               });
-// });
-
-
-// document.querySelector('#exit').addEventListener('click', ()=>{
-  
-  
-//     var data1 = {'signal': true}
-  
-//     $.ajax({ url: close_server,
-//                         type: "POST",
-//                         dataType: "json",
-//                         data: data1,
-//                         cache: false
-//                 }).done(function(data) {
-//                     if (data.result === true){
-//                         alert(data.message);
-//                     }
-//                 });
-//   });
-  
-
-
-
-// $.ajax({
-//     type:"GET", 
-//     url: data_api, 
-//     success: function(data) {
-//             $("body").append(JSON.stringify(data));
-//             console.log(data)
-//         }, 
-//     error: function(jqXHR, textStatus, errorThrown) {
-
-//             alert(jqXHR.status);
-//             console.log(data_api)
-//         },
-//    dataType: "jsonp"
-// });
-
-console.log("OK")
 
 async function funcName(url){
     const response = await fetch(url);
     var data = await response.json();
-
     return data
 }
 
-//     var list = document.querySelector('#chem_structure')
 
-//     for (var i; data['mols'].length; i++){
-//         var li = document.createElement('li')
-//         var a = document.createElement('a')
-//         a.href = "chart-flot.html"
-//         a.innerText = "Chem-"+i
-//         li.append(a)
-//         list.append(li)
-//     }
-//     }
 
-// funcName("http://127.0.0.1:8000"+data_api)
 
-    // var mol = Kekule.IO.loadFormatData(data, 'mol');
-    // var composer = Kekule.Widget.getWidgetById('composer');
-    // composer.setChemObj(mol);
+
+$.ajax({
+    url: data_api+0,
+    type: "GET",
+    dataType: "json",
+    cache: false
+}).done(function(data) {
+
+    var mol = Kekule.IO.loadFormatData(data['mol'], 'mol');
+
+    var composer = Kekule.Widget.getWidgetById('composer');
+    composer.setChemObj(mol);
+
+    var view = Kekule.Widget.getWidgetById('chemViewer');
+    view.setChemObj(mol);
+
+
+    view.setRenderType(Kekule.Render.RendererType.R3D);
+    view.setMoleculeDisplayType(Kekule.Render.Molecule3DDisplayType.STICKS);
+
+}).fail(function(jqXHR, textStatus, errorThrown) {
+
+    console.error("Error: " + textStatus, errorThrown);
+});
 
 var btn = document.querySelector('#chem_structure').querySelectorAll('button')
 
@@ -128,9 +44,6 @@ for (var i = 0; i < btn.length; i++){
 
             var composer = Kekule.Widget.getWidgetById('composer');
             composer.setChemObj(mol);
-
-            // var view = Kekule.Widget.getWidgetById('chemViewer');
-            // view.setChemObj(mol);
 
             var view = Kekule.Widget.getWidgetById('chemViewer');
             view.setChemObj(mol);
@@ -152,8 +65,6 @@ btr.addEventListener('click', ()=>{
 
     view.setRenderType(Kekule.Render.RendererType.R3D);
     view.setMoleculeDisplayType(Kekule.Render.Molecule3DDisplayType.STICKS);
-
-
 })
 
 
@@ -185,8 +96,7 @@ SPACE_FILL.addEventListener('click', ()=>{
     chemViewer.setMoleculeDisplayType(Kekule.Render.Molecule3DDisplayType.SPACE_FILL);
 })
 
-var s2D = document.querySelector('#save-2D-image')
-
+var s2D = document.querySelector('#tool-b-1')
 
 s2D.addEventListener('click', ()=>{
 
@@ -203,9 +113,6 @@ s2D.addEventListener('click', ()=>{
         cache: false
     }).done(function(data) {
         // Access the returned data here
-        console.log(data);
-
-
         var mol = Kekule.IO.loadFormatData(data['mol'], 'mol');
         var view = Kekule.Widget.getWidgetById('chemViewer');
         view.setChemObj(mol);
@@ -220,16 +127,12 @@ s2D.addEventListener('click', ()=>{
 })
 
 var pbc = document.querySelector('#pub-chem-form')
-
-
 var btn = document.querySelector('.input-group').querySelector('button')
 
 btn.addEventListener('click', () => {
 
     var pbc = document.querySelector('#pub-chem-form')
-
     var data1 = {'id': pbc.value}
-
 
     $.ajax({
         url: pubchem_api,
@@ -239,8 +142,6 @@ btn.addEventListener('click', () => {
         cache: false
     }).done(function(data) {
         // Access the returned data here
-        console.log(data);
-
 
         var mol = Kekule.IO.loadFormatData(data['mol'], 'mol');
         var view = Kekule.Widget.getWidgetById('chemViewer');
@@ -249,11 +150,9 @@ btn.addEventListener('click', () => {
         view.setRenderType(Kekule.Render.RendererType.R3D);
         view.setMoleculeDisplayType(Kekule.Render.Molecule3DDisplayType.STICKS);
 
-
         var composer = Kekule.Widget.getWidgetById('composer');
         composer.setChemObj(mol);
 
-        // Perform further actions with the data
     }).fail(function(jqXHR, textStatus, errorThrown) {
         // Handle error cases
         console.error("Error: " + textStatus, errorThrown);
@@ -276,22 +175,85 @@ properties_button.addEventListener('click', ()=>{
         data: data1,
         cache: false
     }).done(function(data) {
-        // Access the returned data here
-
 
         document.querySelector("#mw").innerHTML = data['mw']
         document.querySelector("#lp").innerHTML = data['lp']
         document.querySelector("#NHA").innerHTML = data['NHA']
         document.querySelector("#NHD").innerHTML = data['NHD']
 
-        // {mw: 185.698, lp: 2.259, NHA: 1, NHD: 1}
-        console.log(data);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+
+        console.error("Error: " + textStatus, errorThrown);
+    });
+})
+
+var Image2D = document.querySelector('#tool-b-2')
+
+Image2D.addEventListener('click', ()=>{
+
+    var composer = Kekule.Widget.getWidgetById('composer');
+    var mol = composer.getChemObj();
+    var cmlData1 = Kekule.IO.saveFormatData( mol, 'mol');
+    var data1 = {'file':cmlData1}
+
+    $.ajax({
+        url: save_image,
+        type: "POST",
+        dataType: "json",
+        data: data1,
+        cache: false
+    }).done(function(data) {
+
 
     }).fail(function(jqXHR, textStatus, errorThrown) {
-        // Handle error cases
+
         console.error("Error: " + textStatus, errorThrown);
     });
 })
 
 
-mol_properties 
+var u3dv = document.querySelector("#update-3d-view")
+
+u3dv.addEventListener('click', ()=>{
+    var composer = Kekule.Widget.getWidgetById('composer');
+    var mol = composer.getChemObj();
+
+    var view = Kekule.Widget.getWidgetById('chemViewer');
+    view.setChemObj(mol);
+})
+
+var smtg = document.querySelector('#save-mol-to-galaxy')
+
+smtg.addEventListener('click', ()=>{
+
+    var composer = Kekule.Widget.getWidgetById('composer');
+    var mol = composer.getChemObj();
+    var cmlData1 = Kekule.IO.saveFormatData( mol, 'mol');
+    var data = {'file':cmlData1}
+
+    $.ajax({
+        url: write_mol_file,
+        type: "POST",
+        dataType: "json",
+        data: data,
+        cache: false
+    }).done(function(data) {
+
+
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+
+        console.error("Error: " + textStatus, errorThrown);
+    });
+})
+
+var ext = document.querySelector('#exit-tool')
+
+ext.addEventListener('click', ()=>{
+
+    $.ajax({
+        url: closs_server,
+        cache: false
+    }).done(function(data) {
+
+    })
+})
