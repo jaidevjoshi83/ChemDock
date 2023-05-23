@@ -1,9 +1,8 @@
-<tool id="interactive_tool_chem_app" name="Chem Drawing" tool_type="interactive" version="0.1" license="MIT">
+<tool id="interactive_tool_chem_app" name="Chem Drawing" tool_type="interactive" version="0.1" profile="22.01" license="MIT">
     <description>Edit and draw chemical structure.</description>
     
     <requirements>
-        <!--<container type="docker">fabiocumbo/igv:0.1</container>-->
-        <container type="docker">jayadevjoshi12/chem:1</container>
+        <container type="docker">jayadevjoshi12/chem:1 </container>≈            
     </requirements>
     
     <entry_points>
@@ -14,19 +13,54 @@
     </entry_points>
     
     <command><![CDATA[
+
         #import re
-        ln -sf '$input' '/home/app/webapp/Chem/static/data/data.mol' &&
+
+        ln -sf '$input' '/home/app/webapp/Chem/static/Chem/data/data.''$dataset_type.mol_type'  &&
+
         python /home/app/webapp/manage.py runserver 0.0.0.0:8000 && 
-        cp '/home/app/webapp/Chem/static/out/chem.mol' '$output'
+
+        cp '/home/app/webapp/Chem/static/Chem/out/mol/chem.mol' '$mol' && 
+        cp '/home/app/webapp/Chem/static/Chem/out/image/mol.png' '$image' 
+
       ]]>
     </command>
     
     <inputs>
-        <param name="input" type="data" format="fasta" label="Input fasta file" />
+
+        <conditional name="dataset_type">
+            <param name="mol_type" type="select" 
+                   label="Data type" 
+                   help="Select input data">
+                <option value="mol" selected="true">mol</option>
+                <option value="sdf">sdf</option>
+                <option value="mol2">mol2</option>
+                <option value="smi">smi</option>
+            </param>
+            
+            <when value="mol" >
+                <param name="input" type="data" format="mol" label="mole file" />
+            </when>
+
+            <when value="mol2">
+                <param name="input" type="data" format="mol2" label="mol2 file" />
+            </when>
+
+            <when value="sdf">
+                <param name="input" type="data" format="sdf" label="sdf file" />
+            </when>
+
+            <when value="smi">
+                <param name="input" type="data" format="text" label="smi file" />
+            </when>
+
+        </conditional>
+
     </inputs>
     
     <outputs>
-        <data name="output" format="mol" label="Mole file"/>
+        <data name="mol" format="mol" label="Mole file"/>
+        <data name="image" format="png" label="png file"/>
     </outputs>
     
     <tests>
@@ -38,7 +72,8 @@
     </tests>
     
     <help><![CDATA[
-        This interactive tool allows user to edit and draw chemical structures.
+This interactive tool allows user to edit and draw chemical structures.
+
    ]]></help>
     <citations>
         <citation type="doi">https://github.com/jaidevjoshi83/ChemDock</citation>
