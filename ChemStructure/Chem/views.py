@@ -10,6 +10,7 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 from rdkit.Chem import AllChem
 from rdkit.Chem import Descriptors
+from rdkit.Chem import SDWriter
 import requests
 import json
 from .utils import SDF_reader, GetSDFProperties
@@ -24,18 +25,23 @@ def properties(request):
 
 @csrf_exempt
 def write_mol_file(request):  
-
     if request.method == "POST":
         form = request.POST
         if form:
-            out_file_path = os.path.join(settings.STATIC_ROOT, 'Chem', 'out', 'mol', 'chem.mol')
+            out_file_path = os.path.join(settings.STATIC_ROOT, 'Chem', 'out', 'mol')
 
-            if os.path.exists(out_file_path):
-                os.remove(out_file_path)
+            # if os.path.exists(out_file_path):
+            #     os.remove(out_file_path)
 
-            f =  open(out_file_path, 'w')
-            f.write(form.dict()['file'])
-            f.close()
+            # f =  open(out_file_path, 'w')
+
+            print(form.dict()['file'])
+            # f.write(form.dict()['file'])
+            # f.close()
+
+            mol = Chem.MolFromMolBlock(form.dict()['file'])
+            writer = SDWriter(out_file_path+'/molecule.sdf')
+            writer.write(mol)
 
             return JsonResponse(form.dict(), status=201)
         return JsonResponse('error', status=400)

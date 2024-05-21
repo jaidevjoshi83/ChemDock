@@ -1,0 +1,229 @@
+{
+    "a_galaxy_workflow": "true",
+    "annotation": "",
+    "format-version": "0.1",
+    "name": "Docking_workflow",
+    "steps": {
+        "0": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 0,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Ligand"
+                }
+            ],
+            "label": "Ligand",
+            "name": "Input dataset",
+            "outputs": [],
+            "position": {
+                "bottom": 594.16015625,
+                "height": 60.6640625,
+                "left": 465.009765625,
+                "right": 665.009765625,
+                "top": 533.49609375,
+                "width": 200,
+                "x": 465.009765625,
+                "y": 533.49609375
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"tag\": \"\"}",
+            "tool_version": null,
+            "type": "data_input",
+            "uuid": "eaed10f0-7cf8-4ce0-82eb-400f11de8cc9",
+            "workflow_outputs": []
+        },
+        "1": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 1,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Receptor Protein"
+                }
+            ],
+            "label": "Receptor Protein",
+            "name": "Input dataset",
+            "outputs": [],
+            "position": {
+                "bottom": 482.16796875,
+                "height": 60.6640625,
+                "left": 767.998046875,
+                "right": 967.998046875,
+                "top": 421.50390625,
+                "width": 200,
+                "x": 767.998046875,
+                "y": 421.50390625
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"tag\": \"\"}",
+            "tool_version": null,
+            "type": "data_input",
+            "uuid": "0fc58159-0562-43b8-af46-3fdeec7b2303",
+            "workflow_outputs": []
+        },
+        "2": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 2,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Configuration File"
+                }
+            ],
+            "label": "Configuration File",
+            "name": "Input dataset",
+            "outputs": [],
+            "position": {
+                "bottom": 757.55859375,
+                "height": 81.064453125,
+                "left": 770,
+                "right": 970,
+                "top": 676.494140625,
+                "width": 200,
+                "x": 770,
+                "y": 676.494140625
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"tag\": \"\"}",
+            "tool_version": null,
+            "type": "data_input",
+            "uuid": "a81586e1-e8b2-40c8-b169-289fc0476977",
+            "workflow_outputs": []
+        },
+        "3": {
+            "annotation": "",
+            "content_id": "interactive_tool_chem_app",
+            "errors": null,
+            "id": 3,
+            "input_connections": {
+                "dataset_type|input": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Chem Drawing",
+                    "name": "dataset_type"
+                }
+            ],
+            "label": null,
+            "name": "Chem Drawing",
+            "outputs": [
+                {
+                    "name": "mol",
+                    "type": "sdf"
+                },
+                {
+                    "name": "image",
+                    "type": "png"
+                }
+            ],
+            "position": {
+                "bottom": 642.55859375,
+                "height": 122.08984375,
+                "left": 787.978515625,
+                "right": 987.978515625,
+                "top": 520.46875,
+                "width": 200,
+                "x": 787.978515625,
+                "y": 520.46875
+            },
+            "post_job_actions": {
+                "HideDatasetActionmol": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "mol"
+                }
+            },
+            "tool_id": "interactive_tool_chem_app",
+            "tool_state": "{\"dataset_type\": {\"mol_type\": \"smi\", \"__current_case__\": 3, \"input\": {\"__class__\": \"RuntimeValue\"}}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1",
+            "type": "tool",
+            "uuid": "bdee4ba6-69ab-4611-b800-4c39284db36d",
+            "workflow_outputs": [
+                {
+                    "label": "png file",
+                    "output_name": "image",
+                    "uuid": "49d5febb-0c06-4335-82b1-68869e71e7be"
+                }
+            ]
+        },
+        "4": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/autodock_vina/docking/1.2.3+galaxy0",
+            "errors": null,
+            "id": 4,
+            "input_connections": {
+                "config_params|box": {
+                    "id": 2,
+                    "output_name": "output"
+                },
+                "ligands": {
+                    "id": 3,
+                    "output_name": "mol"
+                },
+                "receptor": {
+                    "id": 1,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool VINA Docking",
+                    "name": "flex"
+                }
+            ],
+            "label": null,
+            "name": "VINA Docking",
+            "outputs": [
+                {
+                    "name": "sdf_outputs",
+                    "type": "input"
+                }
+            ],
+            "position": {
+                "bottom": 675.78125,
+                "height": 203.291015625,
+                "left": 1195.009765625,
+                "right": 1395.009765625,
+                "top": 472.490234375,
+                "width": 200,
+                "x": 1195.009765625,
+                "y": 472.490234375
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/autodock_vina/docking/1.2.3+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "90ea16534012",
+                "name": "autodock_vina",
+                "owner": "bgruening",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"config_params\": {\"config_params\": \"file\", \"__current_case__\": 1, \"box\": {\"__class__\": \"ConnectedValue\"}, \"exh\": null}, \"flex\": {\"__class__\": \"RuntimeValue\"}, \"ligands\": {\"__class__\": \"ConnectedValue\"}, \"output\": \"sdf\", \"ph_value\": \"7.4\", \"receptor\": {\"__class__\": \"ConnectedValue\"}, \"settings\": {\"scoring\": null, \"num_modes\": null, \"min_rmsd\": null, \"energy_range\": null}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "1.2.3+galaxy0",
+            "type": "tool",
+            "uuid": "9acb4952-d915-46bf-bb94-772fd5ed4bbf",
+            "workflow_outputs": [
+                {
+                    "label": "Docked ligands for input dataset(s)",
+                    "output_name": "sdf_outputs",
+                    "uuid": "88591f48-7db4-4f35-93ae-024c26a08203"
+                }
+            ]
+        }
+    },
+    "tags": [],
+    "uuid": "5b253d91-a905-4c91-b51c-9da9d8b3be44",
+    "version": 10
+}

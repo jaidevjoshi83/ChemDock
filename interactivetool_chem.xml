@@ -2,7 +2,7 @@
     <description>Edit and draw chemical structure.</description>
     
     <requirements>
-        <container type="docker">jayadevjoshi12/chem:1 </container>≈            
+        <container type="docker">jayadevjoshi12/chem:test  </container>≈            
     </requirements>
     
     <entry_points>
@@ -15,19 +15,16 @@
     <command><![CDATA[
 
         #import re
+        ln -sf '$input' '/home/app/webapp/Chem/static/Chem/data/'  &&
 
-        ln -sf '$input' '/home/app/webapp/Chem/static/Chem/data/data.''$dataset_type.mol_type'  &&
-
-        python /home/app/webapp/manage.py runserver 0.0.0.0:8000 && 
-
-        cp '/home/app/webapp/Chem/static/Chem/out/mol/chem.mol' '$mol' && 
-        cp '/home/app/webapp/Chem/static/Chem/out/image/mol.png' '$image' 
-
+        ls /home/app/webapp/Chem/static/Chem/data/
+        ## python /home/app/webapp/manage.py runserver 0.0.0.0:8000 && 
+        ## cp '/home/app/webapp/Chem/static/Chem/out/mol/molecule.sdf' '$mol' && 
+        ## cp '/home/app/webapp/Chem/static/Chem/out/image/mol.png' '$image' 
       ]]>
     </command>
     
     <inputs>
-
         <conditional name="dataset_type">
             <param name="mol_type" type="select" 
                    label="Data type" 
@@ -59,7 +56,7 @@
     </inputs>
     
     <outputs>
-        <data name="mol" format="mol" label="Mole file"/>
+        <data name="mol" format="sdf" label="Molecule"/>
         <data name="image" format="png" label="png file"/>
     </outputs>
     

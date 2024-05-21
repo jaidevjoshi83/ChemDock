@@ -5,10 +5,6 @@ async function funcName(url){
     return data
 }
 
-
-
-
-
 $.ajax({
     url: data_api+0,
     type: "GET",
@@ -229,6 +225,10 @@ smtg.addEventListener('click', ()=>{
     var composer = Kekule.Widget.getWidgetById('composer');
     var mol = composer.getChemObj();
     var cmlData1 = Kekule.IO.saveFormatData( mol, 'mol');
+
+
+
+    console.log(cmlData1)
     var data = {'file':cmlData1}
 
     $.ajax({
