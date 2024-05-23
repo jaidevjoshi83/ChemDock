@@ -29,6 +29,7 @@ def write_mol_file(request):
         form = request.POST
         if form:
             out_file_path = os.path.join(settings.STATIC_ROOT, 'Chem', 'out', 'mol')
+            out_file_png = os.path.join(settings.STATIC_ROOT, 'Chem', 'out', 'image')
 
             # if os.path.exists(out_file_path):
             #     os.remove(out_file_path)
@@ -42,6 +43,11 @@ def write_mol_file(request):
             mol = Chem.MolFromMolBlock(form.dict()['file'])
             writer = SDWriter(out_file_path+'/molecule.sdf')
             writer.write(mol)
+            writer.close()
+
+            img = Draw.MolToImage(mol, size=(400, 400))
+            png_file_path = os.path.join(out_file_png, 'mol.png')
+            img.save(png_file_path)
 
             return JsonResponse(form.dict(), status=201)
         return JsonResponse('error', status=400)
